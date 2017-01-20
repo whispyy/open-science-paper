@@ -34,15 +34,17 @@ function loadComment() {
     var repouri  = 'https://api.github.com/repos/'+username+'/'+reponame;
     var issuesuri = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
     
+    
     requestJSON(requri, function(json) {
         var outhtml;
         var repo;
         $.getJSON(repouri, function(json){
           repo = json;
           var star_number = repo.stargazers_count;
+          
           outhtml = '<ol class="breadcrumb">';
           outhtml = outhtml+ '<li>Number of star: <span class="badge">'+star_number+'</span></li>';       
-          //outhtml = outhtml+ '<li class="btn btn-primary btn-small">Add Star</li>'
+          outhtml = outhtml+ '<li class="btn btn-primary btn-small" onClick="putStar()">Add Star</li>'
           outhtml = outhtml+ '</ol>';
         });
 

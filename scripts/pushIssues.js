@@ -58,6 +58,35 @@ function postIssue(user, pass, title, body){
     
 }
 
+function putStar(user, pass){
+   
+   var starredurl = 'https://api.github.com/user/starred/'+userrepo+'/'+repo;
+   console.log(starredurl);
+   $.ajax({
+    type: "PUT",
+    //dataType: "json",
+    headers: {
+    "Authorization": "Basic " + btoa(user + ":" + pass),
+    "Content-Length": 0
+  /*  "X-HTTP-Method-Override": "PUT",
+    'Access-Control-Allow-Credentials': true,
+    "Access-Control-Allow-Origin": 'http://127.0.0.1:4000/publication/'
+  */
+    },
+    url: starredurl
+   /* crossDomain: true,
+    xhrFields:{
+      'withCredentials':true*/
+  })
+   .done(function( data ) {
+    console.log( data );
+  })
+   .fail(function( err) {
+    // body...
+    console.log(err.status);
+  });
+}
+
 $(function(){
   $('#sendIssue').on('click', function(e){
     e.preventDefault();
