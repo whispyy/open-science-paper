@@ -65,3 +65,7 @@ Future Evolution :
 
 * [toastr](https://github.com/CodeSeven/toastr)
 * [side-comments](http://aroc.github.io/side-comments-demo)
+
+## Tutorials
+
+* [1 - Init the project](https://www.youtube.com/watch?v=OIEl64boKS8)
