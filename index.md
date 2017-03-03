@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: default2
 title: Open Science Paper
 description: "A modern web framework for publishing true Open Science papers on GitHub."
 keywords: "HTML, CSS, JS"
