@@ -45,8 +45,8 @@
       <div class="nav-wrapper">
         <a class="brand-logo hide-on-small-and-down" href="#">{{ page.title }}</a>
         <ul id="nav-mobile" class="right">
-          <li><button id="signIn" type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#myModal">Sign-in</button></li>
-          <li><button id="signOut" type="button" class="btn btn-default navbar-btn navbar-right">Sign-out</button></li>
+          <li><a id="signIn" class="waves-effect waves-light btn" href="#modal1">Sign-in</a></li>
+          <li><button id="signOut" type="button" class="btn">Sign-out</button></li>
         </ul>
       </div>
     </nav>
@@ -97,33 +97,28 @@
    </div>
   </article>
   <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Github Sign-In</h4>
-        </div>
-        <div class="modal-body text-center">
-          <label for="username">Username:</label>
-          <input id="username" type="text" placeholder="username">
-          <br />
-          <label for="password">Password:</label>
-          <input id="password" type="password" placeholder="password">
-          <br /><br />
-          <button type="button" class="btn btn-primary" id="connect" data-dismiss="modal">Connect</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+  <div id="modal1" class="modal">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <h4 class="centered">Github Sign-In</h4>
+      <label for="username">Username:</label>
+      <input id="username" type="text" placeholder="username">
+      <br />
+      <label for="password">Password:</label>
+      <input id="password" type="password" placeholder="password">
+      <br /><br />
+      <button type="button" class="btn blue" id="connect">Connect</button>
+      <div class="modal-footer">
+        <button type="button" class="btn modal-action modal-close red">Close</button>
       </div>
     </div>
   </div>
   <!-- end Modal -->
 
   <script type="text/javascript">
+  $(document).ready(function(){
+    $('#modal1').modal();
+  });
   var userrepo = "{{ site.username }}"
   var repo = "{{ site.reponame }}"
   </script>
