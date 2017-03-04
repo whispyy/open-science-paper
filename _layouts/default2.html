@@ -52,17 +52,16 @@
     </nav>
   </div>
   <!-- fin nav -->
-  <br /><br />
   <article>
    <div class="container">
     <h1><a href="./">{{ page.title }}</a></h1>
     <br />
-    <div class="auteurs">
+    <div class="auteurs row">
      {% for author in page.authors %}
-     <div class="col-xs-12 col-md-6">
-        <div class="panel panel-default text-center" style="height:150px">
-          <div class="panel-heading">{{ author.name }}</div>
-          <div class="panel-body" style="word-wrap: break-word">
+     <div class="col s12 m6">
+        <div class="card" style="height:150px">
+          <span class="card-title">{{ author.name }}</span>
+          <div class="card-content" style="word-wrap: break-word">
           {{ author.mail }}
           <br />
           {{ author.location }}
