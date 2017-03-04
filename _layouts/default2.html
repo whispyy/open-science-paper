@@ -39,13 +39,19 @@
   {% seo %}
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <a class="navbar-brand navbar-center" href="#">{{ page.title }}</a>
-      <button id="signIn" type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#myModal">Sign-in</button>
-      <button id="signOut" type="button" class="btn btn-default navbar-btn navbar-right">Sign-out</button>
-    </div>
-  </nav>
+  <!-- debut nav -->
+  <div class="navbar-fixed">
+    <nav class="indigo">
+      <div class="nav-wrapper">
+        <a class="brand-logo hide-on-small-and-down" href="#">{{ page.title }}</a>
+        <ul id="nav-mobile" class="right">
+          <li><button id="signIn" type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#myModal">Sign-in</button></li>
+          <li><button id="signOut" type="button" class="btn btn-default navbar-btn navbar-right">Sign-out</button></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- fin nav -->
   <br /><br />
   <article>
    <div class="container">
