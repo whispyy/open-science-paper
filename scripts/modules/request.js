@@ -235,11 +235,13 @@
               }
               else {
                 issues.reverse();
-                outhtml = outhtml + '<h4 class="center-align">Comments</h4>';
+                outhtml = outhtml + '<h4 class="center-align">Comments</h4><div class="collection">';
                 $.each(issues, function(index) {
-                  outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="list-group-item"><h4 class="list-group-item-heading">'+issues[index].user.login+
-                              ' : '+issues[index].title+'</h4>'+
-                              '<p class="list-group-item-text">'+issues[index].body+'</p></a>';
+                  outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="collection-item">'+
+                              '<h5>'+
+                                issues[index].user.login+' : '+issues[index].title+
+                              '</h5>'+
+                              '<p>'+issues[index].body+'</p></a>';
                 });
                 outhtml = outhtml + '</div>'; 
               }
