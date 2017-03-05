@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/css/syntax.css">
   {% if site.font-awesome-include %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">{% endif %}
   <link rel="stylesheet" href="{{ site.baseurl }}/css/rrssb.css">
-  <link rel="stylesheet" href="{{ site.baseurl }}/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/css/materialize.min.css">
   <!--css side comments-->
   <link rel="stylesheet" href="{{ site.baseurl }}/css/default-theme.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/side-comments.css">
@@ -25,7 +25,7 @@
 
   <!-- lib - js -->
   <script src="{{ site.baseurl }}/scripts/lib/jquery.js"></script>
-  <script src="{{ site.baseurl }}/scripts/lib/bootstrap.min.js"></script>
+  <script src="{{ site.baseurl }}/scripts/lib/materialize.min.js"></script>
   <script src="{{ site.baseurl }}/scripts/lib/side-comments.js"></script>
   <script src="{{ site.baseurl }}/scripts/lib/toastr.js"></script>
   <!-- end lib - js -->
@@ -39,24 +39,29 @@
   {% seo %}
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <a class="navbar-brand navbar-center" href="#">{{ page.title }}</a>
-      <button id="signIn" type="button" class="btn btn-default navbar-btn navbar-right" data-toggle="modal" data-target="#myModal">Sign-in</button>
-      <button id="signOut" type="button" class="btn btn-default navbar-btn navbar-right">Sign-out</button>
-    </div>
-  </nav>
-  <br /><br />
+  <!-- debut nav -->
+  <div class="navbar-fixed">
+    <nav class="indigo">
+      <div class="nav-wrapper">
+        <a class="brand-logo hide-on-small-and-down" href="#">{{ page.title }}</a>
+        <ul id="nav-mobile" class="right">
+          <li><a id="signIn" class="waves-effect waves-light btn" href="#modal1">Sign-in</a></li>
+          <li><button id="signOut" type="button" class="btn">Sign-out</button></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <!-- fin nav -->
   <article>
    <div class="container">
     <h1><a href="./">{{ page.title }}</a></h1>
     <br />
-    <div class="auteurs">
+    <div class="auteurs row">
      {% for author in page.authors %}
-     <div class="col-xs-12 col-md-6">
-        <div class="panel panel-default text-center" style="height:150px">
-          <div class="panel-heading">{{ author.name }}</div>
-          <div class="panel-body" style="word-wrap: break-word">
+     <div class="col s12 m6">
+        <div class="card" style="height:150px">
+          <span class="card-title">{{ author.name }}</span>
+          <div class="card-content" style="word-wrap: break-word">
           {{ author.mail }}
           <br />
           {{ author.location }}
@@ -70,16 +75,14 @@
     </div>
     <div id="comments" class="list-group"></div>
     <div id="addComment">
-      <div class="panel panel-default text-center">
-        <div class="panel-heading">
-          <h5>Comment</h5>
-        </div>
-        <div class="panel-body">
+      <div class="card">
+        <span class="card-title"><h4 class="center-align">Comment</h4></span>
+        <div class="card-content">
           <div class="col-xs-12">
             <input id="title" type="text" placeholder="Title or Paragraph number" style="min-width: 100%">
           </div>
           <div class="col-xs-12">
-            <textarea id="body" rows="3" placeholder="Body" style="min-width: 100%"></textarea>
+            <textarea id="body" rows="3" placeholder="Body" class="materialize-textarea" style="min-width: 100%"></textarea>
           </div>
           <div class="col-xs-3 col-xs-offset-9">
             <button class="btn btn-primary btn-float" id="sendIssue">
@@ -92,34 +95,32 @@
    </div>
   </article>
   <!-- Modal -->
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Github Sign-In</h4>
-        </div>
-        <div class="modal-body text-center">
-          <label for="username">Username:</label>
-          <input id="username" type="text" placeholder="username">
-          <br />
-          <label for="password">Password:</label>
-          <input id="password" type="password" placeholder="password">
-          <br /><br />
-          <button type="button" class="btn btn-primary" id="connect" data-dismiss="modal">Connect</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+  <div id="modal1" class="modal">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <h4 class="center-align">Github Sign-In</h4>
+      <label for="username">Username:</label>
+      <input id="username" type="text" placeholder="username">
+      <br />
+      <label for="password">Password:</label>
+      <input id="password" type="password" placeholder="password">
+      <br /><br />
+      
+      <div class="modal-footer">
+        <button type="button" class="btn left blue" id="connect">Connect</button>
+        <button type="button" class="btn right modal-action modal-close red">Close</button>
       </div>
     </div>
   </div>
   <!-- end Modal -->
+
   <script type="text/javascript">
-  var userrepo = "{{ site.username }}"
-  var repo = "{{ site.reponame }}"
+    $(document).ready(function(){
+      $('#modal1').modal();
+    });
+    var userrepo = "{{ site.username }}"
+    var repo = "{{ site.reponame }}"
+    var theme = "material"
   </script>
   <script src="{{ site.baseurl }}/scripts/rrssb.min.js"></script>
   <script src="{{ site.baseurl }}/scripts/connectGithub.js"></script>

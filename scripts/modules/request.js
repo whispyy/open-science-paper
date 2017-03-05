@@ -13,7 +13,8 @@
       postJSON : postJSON,
       requestJSON : requestJSON,
       postIssue : postIssue,
-      loadComment : loadComment
+      loadComment : loadComment,
+      loadComment2 : loadComment2
     };
 
     function postJSON(url, data, user, pass, userrepo, repo) {
@@ -74,7 +75,9 @@
       postJSON(uploadURL, data, user, pass, userrepo, repo);
         
     }
-
+    /*
+     * loading comment with Classic theme
+     */
     function loadComment(username, reponame) {
         //hide button if we're signed in
         if (Cookie.getCookie("user") == null || Cookie.getCookie("user") == "")
@@ -120,6 +123,119 @@
               else {
                 issues.reverse();
                 outhtml = outhtml + '<p><strong>Comments:</strong></p>';
+                $.each(issues, function(index) {
+                  outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="list-group-item"><h4 class="list-group-item-heading">'+issues[index].user.login+
+                              ' : '+issues[index].title+'</h4>'+
+                              '<p class="list-group-item-text">'+issues[index].body+'</p></a>';
+                });
+                outhtml = outhtml + '</div>'; 
+              }
+              $('#comments').html(outhtml);
+            } // end outputPageContent()
+
+            /*
+             * put comment to the sidecomment
+             */
+            function sidePageContent(){
+              var sideComments = require('side-comments');
+
+              var commentable = document.getElementById('commentable-area');
+
+              var size = $('#commentable-area p').length;
+
+              var existingComments = [];
+
+              console.log(size);
+              for (var i = 0; i < size; i++){
+                var p = commentable.getElementsByTagName('p')[i];
+                existingComments[i] = { "sectionId": i.toString(), "comments":[]};
+                p.setAttribute('class','commentable-section');
+                p.setAttribute('data-section-id',i+1);
+              }
+
+              var currentUser = {
+                id: 1,
+                name: Cookie.getCookie("user")
+              };
+
+              
+              $.each(issues, function(index){
+                for (var i =0; i < size; i++)
+                  if (issues[index].title == i){
+                    existingComments[i].comments.push({
+                      "authorAvatarUrl": issues[index].user.avatar_url,
+                      "authorName": issues[index].user.login,
+                      "comment": issues[index].body
+                    });
+                  }
+              });
+              console.log(existingComments);
+              sideComments = new sideComments('#commentable-area', currentUser,existingComments);
+              console.log(sideComments);
+              sideComments.on('commentPosted', function( comment ) {
+                if (Cookie.getCookie("user") == "" || Cookie.getCookie("user") == null)
+                  toastr["warning"]("You need to be signed in to comment");
+                postIssue(
+                    Cookie.getCookie("user"),
+                    Cookie.getCookie("pass"),
+                    comment.sectionId.toString(),
+                    comment.comment,
+                    username,
+                    reponame);
+                console.log(comment);
+              });
+            }
+        }); // end requestJSON Ajax call
+    }
+
+    /*
+     * loading comment with Material theme
+     */
+    function loadComment2(username, reponame) {
+        //hide button if we're signed in
+        if (Cookie.getCookie("user") == null || Cookie.getCookie("user") == "")
+          $('#signOut').hide();
+        else $('#signIn').hide();
+
+        //var username = userrepo;
+        //var reponame = repo;
+        var requri   = 'https://api.github.com/users/'+username;
+        var repouri  = 'https://api.github.com/repos/'+username+'/'+reponame;
+        var issuesuri = 'https://api.github.com/repos/'+username+'/'+reponame+'/issues';
+        
+        requestJSON(requri, function(json) {
+            var outhtml;
+            var repo;
+            $.getJSON(repouri, function(json){
+              repo = json;
+              var star_number = repo.stargazers_count;
+              outhtml = '<nav class="indigo"><div class="nav-wrapper">';
+              outhtml = outhtml+ '<div class="left brand-logo">'+star_number+'star(s)</div>';       
+              outhtml = outhtml+ '<a class="right brand-logo" target ="_blank" href="https://github.com/'+username+'/'+reponame+'/"><i class="fa fa-star"></i>Star it</a>'
+              outhtml = outhtml+ '</nav></div>';
+            });
+
+            var issues;
+            $.getJSON(issuesuri, function(json){
+              issues = json;
+              outputPageContent();
+              sidePageContent();
+              toastr["info"]("Comments loaded");              
+            })
+            .fail(function () {
+              toastr["error"]("Comments not loaded <br/> (check User/Repo in _config.yml)");
+            });          
+
+            /*
+             * Print comment at the bottom of the page
+             */
+            function outputPageContent() {
+              if(issues.length == 0) { 
+                toastr["info"]("No Comments!");
+              }
+              else {
+                issues.reverse();
+                outhtml = outhtml + '<h4 class="center-align">Comments</h4>';
                 $.each(issues, function(index) {
                   outhtml = outhtml + '<a href="'+issues[index].html_url+'" target="_blank" class="list-group-item"><h4 class="list-group-item-heading">'+issues[index].user.login+
                               ' : '+issues[index].title+'</h4>'+
