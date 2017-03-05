@@ -2,7 +2,7 @@
 url: ""
 baseurl: ""
 
-# Git setup to use the comment section
+# Github setup to use the comment section
 username: "Whispyy"
 reponame: "API-git"
 

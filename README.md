@@ -25,11 +25,17 @@ A modern web framework for publishing true Open Science papers on GitHub.
 
 We try to make it easier as possible to use. Currently it is needed to care about two files :
 
-* index.md : file containing the publication
-* _config.yml : divided in 3 parts
-  - *site setting* where you enter the title of the page, a description and some keywords for SEO. Here it is possible to define the url.
+* index.md : file containing the publication. Set this :
+  - *layout* : classic (bootstrap theme), material (materialize theme).
+  - *title* : title of the publication.
+  - *description* : description for the publication.
+  - *keywords* : enter the keywords separated with comma.
   - *authors* a list of authors where it is possible to add name, mail and location.
-  - *using issues as comment* it is needed to point us to our git repo so we need username and reponame.
+
+* _config.yml :
+  - *site setting* : set the url and baseurl of the git repo.
+  - *git setup* : Set the username and the reponame of the github repository.
+
 
 ## Releases informations
 
@@ -51,6 +57,9 @@ Available there :
 * Add the possibility to like the publication using github star.
 * Post a comment from pointing a part of the publication.
 	* For the moment : using issue.
+* Implemented new layout :
+	* classic (bootstrap theme)
+	* material (materializecss)
 
 Available soon :
 
@@ -65,7 +74,7 @@ Future Evolution :
 
 * [toastr](https://github.com/CodeSeven/toastr)
 * [side-comments](http://aroc.github.io/side-comments-demo)
-* [bootstrap](http://getbootstrap.com) or [materialize](http://materializecss.com)
+* [bootstrap](http://getbootstrap.com) | [materialize](http://materializecss.com)
 
 ## Tutorials
 

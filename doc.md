@@ -7,7 +7,7 @@ To publish an article just edit the ```index.md``` file with the article content
 
 In the header of ```index.md``` there is field to set up :
 
-* layout : keep to default
+* layout : classic for the classic theme or material for the material design one.
 * title : title of the article
 * description : description of the article (used also for the SEO)
 * keywords : keywords of the article (used also for the SEO)
